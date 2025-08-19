@@ -1,0 +1,48 @@
+# Lista Prática:
+
+* 1\. A terra pode ser aproximada por uma esfera de raio $R = 6367.5$ km. 
+Uma localização na superfície da Terra é tradicionalmente dada por sua latitude $\phi$ e sua longitude $\theta$, que correspondem, respectivamente, à distância angular do equador e do meridiano principal. As coordenadas em 3 dimensões são dados pelo vetor $(x,y,z)$, onde:
+$$
+\begin{align*}
+x &= R  \cos(\theta)  \sin(\phi) \\
+y &= R  \cos(\theta)  \cos(\phi) \\
+z &= R  \sin(\theta)
+\end{align*}
+$$
+
+  * a\. Faça uma funççao que receba as coordenadas e retorne o vetor posição correspondente. Teste nas seguintes cidades:
+
+| Cidade         | Latitude ($\phi$) | Longitude ($\theta$) | 
+|----------------|--------------------|---------------------|
+| São Paulo      | $-23.5505^\circ$  | $-46.6333^\circ$     |
+| Nova York      | $40.7128^\circ$   | $-74.0060^\circ$     |
+| Tóquio         | $35.6895^\circ$   | $139.6917^\circ$     |
+| Sydney         | $-33.8688^\circ$  | $151.2093^\circ$     |
+| Londres        | $51.5074^\circ$   | $-0.1278^\circ$      |
+
+  * b\. Calcule as distâncias euclidianas em 3D
+entre São Paulo e as outras cidades utilizando o vetor posição.
+
+  * c\.  Faça uma função que calcule a distância na superfície da Terra entre dois pontos dados suas coordenadas. Utilize a fórmula $d(a,b) = R \angle(a,b)$ e teste no mesmo caso do exercício anterior.
+
+
+2\. Considere os dados da tabela:
+
+### Dados de 8 Países:
+
+| País          | PIB (trilhões USD) | População (milhões) | Inflação (%) | Desemprego (%) |
+|---------------|--------------------|---------------------|--------------|----------------|
+| Brasil        | 2.1                | 213                 | 3.2          | 11.2           |
+| EUA           | 21.4               | 331                 | 2.1          | 3.7            |
+| China         | 14.3               | 1439                | 2.9          | 3.8            |
+| Alemanha      | 3.8                | 83                  | 1.4          | 3.2            |
+| Japão         | 4.9                | 126                 | 0.5          | 2.8            |
+| França        | 2.6                | 67                  | 1.8          | 8.1            |
+| Reino Unido   | 2.8                | 67                  | 2.5          | 4.1            |
+| Canadá        | 1.7                | 38                  | 1.9          | 5.7            |
+
+a\. Compare a semelhança entre o Brasil e outros países utilizando a distância euclidiana entre os vetores de características (PIB, População, Inflação, Desemprego).
+
+b\. Faça a padronização dos dados utilizando a técnica de z-score em cada uma das características. Após a padronização, compare novamente a semelhança entre os países. Explique a diferença nos resultados comparados com o item anterior.
+
+c\. Compute a matriz de correlação entre os países.
