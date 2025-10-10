@@ -1,0 +1,56 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage[portuguese]{babel}  
+
+\geometry{margin=0.3in}
+
+
+\title{Lista Teórica 7}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+\item Determine se $W$ é um subespaço de $V$, nos seguintes casos:
+
+\begin{enumerate}
+    \item[(a)] $V = \mathbb{R}^3$, $W = \left\{ \begin{bmatrix} a \\ 0 \\ a \end{bmatrix} ,\ a \in \mathbb{R} \right\}$.
+    \item[(b)] $V = \mathbb{R}^3$, $W = \left\{ \begin{bmatrix} a \\ -a \\ 2a \end{bmatrix} ;\ a \in \mathbb{R} \right\}$.
+    \item[(c)] $V = \mathbb{M}_{22}$ o espaço das matrizes quadradas $2 \times 2$, $W = \left\{ \begin{bmatrix} a & b \\ c & d \end{bmatrix} ;\ a, b, c, d \in \mathbb{R} \right\}$.
+    \item[(d)] $V = \mathbb{M}_{nn}$ o espaço das matrizes quadradas $n \times n$, $W = \{A \in \mathbb{M}_{nn};\ \det(A) = 1\}$.
+    \item[(e)] $V = \mathbb{P}_2$ o espaço dos polinômios de grau menor ou igual a $2$, $W = \{bx + cx^2;\ b, c \in \mathbb{R}\}$.
+\end{enumerate}
+
+\item Determine se o conjunto $B$ é uma base do espaço vetorial $V$, nos seguintes casos:
+\begin{enumerate}
+    \item[(a)] $V = \mathbb{R}^2$, $B = \left\{ \begin{bmatrix} 1 \\ 2 \end{bmatrix}, \begin{bmatrix} 2 \\ 4 \end{bmatrix} \right\}$.
+    \item[(b)] $V = \mathbb{P}_2$, $B = \{1, x - 1, (x - 1)^2\}$.
+    \item[(c)] $V = \mathbb{M}_{22}$, $B = \left\{ \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}, \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}, \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}\right\}$.
+    \item[(d)] $V = \mathbb{M}_{22}$, $B = \left\{ \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}, \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}, \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}, \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}\right\}$.
+\end{enumerate}
+
+\item Qual a nulidade da transformação linear $T: \mathbb{M}_{22} \to \mathbb{R}$ definida por $T(A) = \text{tr}(A)$, em que $\text{tr}(\cdot)$ é a função traço? E no caso de $A \in \mathbb{M}_{nn}$?
+
+\item Verifique se $T$ é uma transformação linear, onde:
+\begin{enumerate}
+    \item[(a)] $T: \mathbb{R}^2 \to \mathbb{R}^2$, definida por $T(x) = yx^Ty$ para $y = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$.
+    \item[(b)] $T: \mathbb{M}_{nn} \to \mathbb{M}_{nn}$, definida por $T(X) = X^TX$.
+\end{enumerate}
+\item Sejam $T: \mathbb{P}_1 \to \mathbb{R}^2$ e $S: \mathbb{R}^2 \to \mathbb{R}^2$ transformações lineares, onde $T(p(x)) = \begin{bmatrix} p(0) \\ p(1) \end{bmatrix}$ e $S\left(\begin{bmatrix} a \\ b \end{bmatrix}\right) = \begin{bmatrix} a - 2b \\ 2a - b \end{bmatrix}$. Encontre a matriz da transformação $S \circ T$.
+
+\item Determine a matriz mudança de base de $B$ para $C$, onde $B$ e $C$ são bases do espaço vetorial $\mathbb{R}^2$ dadas por:
+\begin{enumerate}
+    \item [(a)] $B = \left\{ \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \begin{bmatrix} 0 \\ 1 \end{bmatrix} \right\}$ e $C = \left\{ \begin{bmatrix} 1 \\ -1 \end{bmatrix}, \begin{bmatrix} 1 \\ 1 \end{bmatrix} \right\}$.
+    \item [(b)] $B = \left\{ \begin{bmatrix} -2 \\ 1 \end{bmatrix}, \begin{bmatrix} 1 \\ 1 \end{bmatrix} \right\}$ e $C = \left\{ \begin{bmatrix} 1 \\ -1 \end{bmatrix}, \begin{bmatrix} 3 \\ 4 \end{bmatrix} \right\}$.
+\end{enumerate}
+
+\item Dada uma transformação linear $T: \mathbb{R}^2 \to \mathbb{R}^2$, definida como $T\left(\begin{bmatrix} a \\ b \end{bmatrix}\right) = \begin{bmatrix} -4b \\ a + 5b \end{bmatrix}$, encontre uma base C em $\mathbb{R}^2$ tal que a matriz $[T]$ seja diagonal em relação à base C.
+
+\end{enumerate}
+\end{document}
