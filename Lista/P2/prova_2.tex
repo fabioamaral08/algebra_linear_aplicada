@@ -1,0 +1,122 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+% Pacote para códigos em Python
+\usepackage{listings}
+\renewcommand{\lstlistingname}{Algoritmo}
+% Configuração do ambiente listings para Python
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{red},
+    commentstyle=\color{gray}\itshape,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=5pt,
+    backgroundcolor=\color{white},
+    frame=single,
+    tabsize=4,
+    showspaces=false,
+    showstringspaces=false,
+    breaklines=true,
+    breakatwhitespace=true,
+    captionpos=b
+}
+\pagestyle{empty}
+
+\geometry{a4paper, margin=0.5in,top=0.2in}
+
+\title{Prova 2 - Álgebra Linear para Computação}
+\date{}
+\newcommand{\avg}{\mathbf{\textbf{avg}}}
+\newcommand{\std}{\mathbf{\textbf{std}}}
+\begin{document}
+\maketitle
+\vspace{-4em}
+\begin{enumerate}
+    \item \texttt{(2 pontos)} Considere uma matriz $A \in \mathbb{R}^{2\times 2}$. Aplique a decomposição $LU$ e determine as 4 equações envolvendo os elementos $\ell_{ij} \in L$ e $u_{ij} \in U$. Após isso, faça a decomposição $LU$ e utilize a decomposição para calcular o determinante de $A$.
+    $$
+    A = \begin{bmatrix}
+        5 & 2 \\
+        3 & 1  \\
+    \end{bmatrix}.
+    $$
+
+    \item \texttt{(2 pontos)} Utilizando o terorema espectral:
+    
+    \begin{enumerate}
+        \item \texttt{(1.5 ponto)} faça os cálculos passo a passo para a decomposição $A = P D P^T$ onde:
+    
+        $$
+        \underbrace{\begin{bmatrix}
+            6 & 2\\
+            2 & 3\\
+        \end{bmatrix}}_{A} =  \underbrace{\frac{1}{\sqrt{5}}\begin{bmatrix}
+            2 & 1\\
+            1 & -2\\
+        \end{bmatrix}}_{P}\ \underbrace{\begin{bmatrix}
+            7 & 0\\
+            0 & 2\\
+        \end{bmatrix}}_{D} \ \underbrace{\frac{1}{\sqrt{5}}\begin{bmatrix}
+            2 & 1\\
+            1 & -2\\
+        \end{bmatrix}}_{P^T}.
+        $$
+        \item \texttt{(0.25 ponto)} Oquê acontece quando calculamos $P P^T$?
+        \item \texttt{(0.25 ponto)} Utilize o resultado acima para calcular o determinante e o trço de $A$.
+    \end{enumerate}
+    
+
+    \item \texttt{(2 pontos)} Dada a autodecomposição $A = P D P^{-1}$, explique as caracteristicas das matrizes $P$ e $D$. Depois, calcular a autodecomposição da matriz:
+    $$
+    A = \begin{bmatrix}
+        1 & 4\\
+        2 & 3\\
+    \end{bmatrix}.
+    $$
+    Calcule $A^4$ e explique como relaizar os cálculos utilizando o Teorema da Autodecomposição.
+
+    \item \texttt{(2 pontos)} No caso especial $n = 1$, o problema geral de mínimos quadrados reduz-se a encontrar um escalar $x$ que minimize $\|\mathbf{a}x - \mathbf{b}\|^2$, onde $\mathbf{a}$ e $\mathbf{b}$ são vetores em $\mathbb{R}^m$. (Escrevemos a matriz $A$ em letra minúscula aqui, pois trata-se de um vetor de dimensão $m$.) Assumindo que $\mathbf{a}$ e $\mathbf{b}$ são não nulos, mostre que
+    $$
+    \|\mathbf{a}x - \mathbf{b}\|^2 = \|\mathbf{b}\|^2 (\sin \theta)^2,
+    $$
+    onde $\theta = \angle(\mathbf{a}, \mathbf{b})$.
+    
+
+    \item \texttt{(2 pontos)} No problema de \emph{mínimos quadrados ponderados}, minimizamos o objetivo
+    \[
+    \sum_{i=1}^m w_i (\tilde{a}_i^T x - b_i)^2,
+    \]
+    onde $w_i$ são pesos positivos dados.  
+    Os pesos permitem atribuir diferentes importâncias às componentes do vetor de resíduos.  
+    (O objetivo do problema ponderado é o quadrado da norma ponderada,
+    $\|Ax - b\|_w^2$)
+
+    \begin{enumerate}
+        \item \texttt{(1 ponto)} Mostre que o objetivo de mínimos quadrados ponderados pode ser expresso como
+        \[
+        \|D(Ax - b)\|^2,
+        \]
+        para uma matriz diagonal apropriada $D$.  
+        Isso nos permite resolver o problema ponderado como um problema padrão de mínimos quadrados,  
+        minimizando $\|Bx - d\|^2$, onde $B = DA$ e $d = Db$.
+
+        \item \texttt{(1 ponto)} A solução aproximada de mínimos quadrados é dada por  
+        \[
+            \hat{x} = (A^T A)^{-1} A^T b.
+        \]
+        Dê uma fórmula semelhante para a solução do problema de mínimos quadrados ponderados. Você pode utilizar $W = \text{diag}(w)$
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}

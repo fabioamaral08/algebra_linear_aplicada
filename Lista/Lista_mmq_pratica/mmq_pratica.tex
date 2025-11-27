@@ -1,0 +1,159 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage[portuguese]{babel}  
+% Pacote para códigos em Python
+\usepackage{listings}
+\usepackage{xcolor}
+\renewcommand{\lstlistingname}{Algoritmo}
+% Configuração do ambiente listings para Python
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{red},
+    commentstyle=\color{gray}\itshape,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=5pt,
+    backgroundcolor=\color{white},
+    frame=single,
+    tabsize=4,
+    showspaces=false,
+    showstringspaces=false,
+    breaklines=true,
+    breakatwhitespace=true,
+    captionpos=b
+}
+\geometry{margin=0.5in}
+
+\title{Lista Mínimos Quadrados - Prática}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+    \item Para cada conjunto de dados nos arquivos \texttt{'ex1\_<item>.npz'}, com os itens variando de (a) até (d), leia os arquivos e aproxime os dados através de um polinômio. Justifique a escolha do grau do polinômio usando o plot dos dados e do modelo encontrado.
+    
+    \begin{lstlisting}[gobble=8,caption=Exemplo de leitura de arquivo:]
+        dados = np.load('ex1_a.npz')
+        x = dados['x']
+        y = dados['y']
+    \end{lstlisting}
+
+    \item \textbf{Modelo polinomial com múltiplas variáveis.}  
+    A ideia de modelos polinomiais pode ser estendida a partir do caso em que há apenas uma variável (feature).  
+    Neste exercício, consideramos um modelo quadrático (de grau dois) com 2 variáveis, isto é, $x$ é um vetor em $\mathbb{R}^2$.  
+    O modelo tem a forma
+    \[
+    \hat{f}(x) = a + b_1 x_1 + b_2 x_2 
+    + c_1 x_1^2 + c_2 x_2^2
+    + c_3 x_1 x_2
+    \]
+    onde o escalar $a$, o vetor $b \in \mathbb{R}^2$ e o vetor $c \in \mathbb{R}^3$ são, respectivamente, os coeficientes de ordem zero, primeira e segunda do modelo.
+
+    \begin{enumerate}
+        \item Leia os dados do arquivo  \texttt{'ex2.npz'}, que contem valores de $x$, $y$ e $z$ e encontre uma aproximação para $f(x,y)=z$.
+        \item Calcule o $\mathbf{\text{rms}}$ entre o modelo encontrado e os dados.
+        \item Plote a curva encontrada pelo seu modelo.
+    \begin{lstlisting}[gobble=8,caption=Exemplo de plot de superficies]
+        fig = plt.figure()
+        ax = fig.add_subplot(projection='3d')
+        surf = ax.plot_surface(X, Y, z, cmap='viridis', edgecolor='none', antialiased=True)
+        fig.colorbar(surf, ax=ax, shrink=0.6)
+        ax.set_xlabel('x')
+        ax.set_ylabel('y')
+        ax.set_zlabel('z')
+        ax.set_title('3D surface plot of f(x,y)')
+    \end{lstlisting}
+
+
+    \end{enumerate} 
+
+
+    \item O conjunto de dados contém o número de transistores $N$ em 13 microprocessadores, e seu ano de lançamento.
+    
+    \begin{table}[htb!]
+        \centering
+        \begin{tabular}{cr}
+        \hline
+        Ano  & \multicolumn{1}{c}{Transistores} \\ \hline
+        1971 & 2,250                            \\
+        1972 & 2,500                            \\
+        1974 & 5,000                            \\
+        1978 & 29,000                           \\
+        1982 & 120,000                          \\
+        1985 & 275,000                          \\
+        1989 & 1,180,000                        \\
+        1993 & 3,100,000                        \\
+        1997 & 7,500,000                        \\
+        1999 & 24,000,000                       \\
+        2000 & 42,000,000                       \\
+        2002 & 220,000,000                      \\
+        2003 & 410,000,000                      \\ \hline
+        \end{tabular}
+    \end{table}
+    \begin{enumerate}
+        \item Encontre a melhor aproximação de mínimos quadrados para aproximar os dados. Justifique a escolha do modelo escolhido para aproximar os dados.
+        \item Calcule o $\mathbf{\text{rms}}$ do erro da aproximação nos dados. Ploete o modelo que você encontrou junto com o conjunto de dados. \textit{Dica}: Utilize \texttt{plt.yscale('log')} para melhor visualização.
+        \item Use o seu modelo para prever o número de transistores em um microprocessador introduzido em 2015. Compare essa predição com o microprocessador IBM Z13, lançado em 2015, que possui cerca de $4 \times 10^9$ transistores.
+
+        \item Compare o seu resultado com a lei de Moore, que afirma que o número de transistores por circuito integrado aproximadamente dobra a cada um ano e meio a dois anos.
+\end{enumerate}
+    \item Um laboratório está estudando a degradação da capacidade de baterias de íons de lítio utilizada em veículos elétricos. 
+Para diferentes condições de uso, foram registradas medições ao longo do número de ciclos de carga/descarga.
+
+Os dados estão armazenados no arquivo \texttt{ex4.npz}, fornecido junto com esta lista. Os dados do arquivo são:
+
+\begin{center}
+\begin{tabular}{l l}
+\texttt{cycle}        & número de ciclos de carga/descarga (inteiro positivo) \\
+\texttt{temperature}  & temperatura média de operação durante o ciclo (em $^\circ$C) \\
+\texttt{capacity}     & capacidade medida da bateria (em \% da capacidade nominal) \\
+\end{tabular}
+\end{center}
+
+Queremos ajustar um modelo que relacione a capacidade da bateria com o número de ciclos e a temperatura, da forma
+\[
+\hat{C}(n, T) 
+= \theta_0 
++ \theta_1 n 
++ \theta_2 T 
++ \theta_3 n^2 
++ \theta_4 T^2 
++ \theta_5 nT,
+\]
+onde $n$ é o número de ciclos, $T$ é a temperatura (em $^\circ$C), e os coeficientes $\theta_0,\dots,\theta_5$ serão obtidos por mínimos quadrados.
+
+\begin{enumerate}
+
+    \item Escreva o problema de ajuste em mínimos quadrados na forma matricial
+    \[
+        A\theta \approx C,
+    \]
+    especificando explicitamente a matriz de projeto $A \in \mathbb{R}^{N \times 6}$, o vetor de parâmetros $\theta \in \mathbb{R}^6$ e o vetor de observações $C \in \mathbb{R}^N$.
+
+
+    \item Calcule numericamente $\hat{\theta}$. Em seguida, calcule o erro RMS do ajuste:
+
+    \item Use o modelo ajustado para prever a capacidade da bateria nas seguintes situações:
+    \begin{enumerate}
+        \item $n = 500$ ciclos, $T = 25^\circ$C;
+        \item $n = 500$ ciclos, $T = 45^\circ$C;
+        \item $n = 1500$ ciclos, $T = 25^\circ$C.
+    \end{enumerate}
+    Comente o efeito da temperatura e do número de ciclos sobre a capacidade prevista.
+
+    \item Plote, em um mesmo gráfico, os valores medidos de capacidade versus número de ciclos para uma faixa estreita de temperatura (por exemplo, $T$ entre $23^\circ$C e $27^\circ$C) e a curva correspondente dada pelo modelo $\hat{C}(n,T)$ fixando $T = 25^\circ$C. 
+    Com base nesse gráfico, discuta qualitativamente se o modelo quadrático em $n$ parece adequado.
+
+\end{enumerate}
+
+\end{enumerate}
+\end{document}

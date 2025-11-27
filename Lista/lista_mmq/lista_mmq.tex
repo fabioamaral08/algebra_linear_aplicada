@@ -1,0 +1,159 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage[portuguese]{babel}  
+
+\geometry{margin=0.5in}
+
+\title{Lista 10}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+    \item No caso especial $n = 1$, o problema geral de mínimos quadrados reduz-se a encontrar um escalar $x$ que minimize $\|\mathbf{a}x - \mathbf{b}\|^2$, onde $\mathbf{a}$ e $\mathbf{b}$ são vetores em $\mathbb{R}^m$. (Escrevemos a matriz $A$ em letra minúscula aqui, pois trata-se de um vetor de dimensão $m$.) Assumindo que $\mathbf{a}$ e $\mathbf{b}$ são não nulos, mostre que
+    $$
+    \|\mathbf{a}x - \mathbf{b}\|^2 = \|\mathbf{b}\|^2 (\sin \theta)^2,
+    $$
+    onde $\theta = \angle(\mathbf{a}, \mathbf{b})$. Isso mostra que o erro relativo ótimo ao aproximar um vetor como múltiplo de outro depende do ângulo entre eles.
+
+
+
+    \item Suponha que a matriz $A \in \mathbb{R}^{m \times n}$ possui colunas linearmente independentes, e que $b$ é um vetor em $\mathbb{R}^m$. Defina $\hat{x} = A^\dagger b$ como a solução aproximada de mínimos quadrados do sistema $Ax = b$.
+
+\begin{enumerate}
+    \item Mostre que, para qualquer vetor $x \in \mathbb{R}^n$,
+    $$
+    (Ax)^T b = (Ax)^T (A\hat{x}),
+    $$
+    ou seja, o produto interno entre $Ax$ e $b$ é o mesmo que o produto interno entre $Ax$ e $A\hat{x}$. \textit{Dica:} Use $(Ax)^T b = x^T (A^T b)$ e $(A^T A)\hat{x} = A^T b$.
+
+    \item Mostre que, quando $A\hat{x}$ e $b$ são ambos não nulos,
+    \[
+    \frac{(A\hat{x})^T b}{\|A\hat{x}\| \, \|b\|} = 
+    \frac{\|A\hat{x}\|}{\|b\|}.
+    \]
+    O lado esquerdo é o cosseno do ângulo entre $A\hat{x}$ e $b$.  \textit{Dica:} Aplique o item (a) com $x = \hat{x}$.
+
+    \item A escolha $x = \hat{x}$ minimiza a distância entre $Ax$ e $b$. Mostre que $x = \hat{x}$ também minimiza o ângulo entre $Ax$ e $b$. (Você pode assumir que $Ax$ e $b$ são não nulos.) \textit{Observação.} Para qualquer escalar positivo $\beta$, a escolha $x = \beta \hat{x}$ também minimiza o ângulo entre $Ax$ e $b$.
+\end{enumerate}
+
+    \item No problema de mínimos quadrados, o objetivo (a ser minimizado) é
+\[
+\|Ax - b\|^2 = \sum_{i=1}^m (\tilde{a}_i^T x - b_i)^2,
+\]
+onde $\tilde{a}_i^T$ são as linhas de $A$, e o vetor $x \in \mathbb{R}^n$ deve ser escolhido.  
+No problema de \emph{mínimos quadrados ponderados}, minimizamos o objetivo
+\[
+\sum_{i=1}^m w_i (\tilde{a}_i^T x - b_i)^2,
+\]
+onde $w_i$ são pesos positivos dados.  
+Os pesos permitem atribuir diferentes importâncias às componentes do vetor de resíduos.  
+(O objetivo do problema ponderado é o quadrado da norma ponderada,
+$\|Ax - b\|_w^2$)
+
+\begin{enumerate}
+    \item Mostre que o objetivo de mínimos quadrados ponderados pode ser expresso como
+    \[
+    \|D(Ax - b)\|^2,
+    \]
+    para uma matriz diagonal apropriada $D$.  
+    Isso nos permite resolver o problema ponderado como um problema padrão de mínimos quadrados,  
+    minimizando $\|Bx - d\|^2$, onde $B = DA$ e $d = Db$.
+
+    \item Mostre que, quando $A$ tem colunas linearmente independentes, a matriz $B$ também tem.
+
+    \item A solução aproximada de mínimos quadrados é dada por  
+    \[
+        \hat{x} = (A^T A)^{-1} A^T b.
+    \]
+    Dê uma fórmula semelhante para a solução do problema de mínimos quadrados ponderados.  
+    Você pode utilizar a matriz $W = \mathrm{diag}(w)$ na sua fórmula.
+\end{enumerate}
+
+% \item Uma rede consiste de $n$ enlaces, rotulados $1, \ldots, n$.  
+% Um \emph{caminho} pela rede é um subconjunto desses enlaces.  
+% (A ordem dos enlaces em um caminho não importa aqui.)  
+
+% Cada enlace possui um \emph{atraso} positivo, que é o tempo necessário para percorrê-lo.  
+% Denotamos por $d$ o vetor de dimensão $n$ que contém os atrasos dos enlaces.  
+% O tempo total de viagem de um caminho é a soma dos atrasos dos enlaces pertencentes a esse caminho.  
+% Nosso objetivo é estimar os atrasos dos enlaces (isto é, o vetor $d$) a partir de um grande número de medições (ruidosas) dos tempos de viagem ao longo de diferentes caminhos.
+
+% Esses dados são fornecidos por uma matriz $P$ de dimensão $N \times n$, onde
+% \[
+% P_{ij} = 
+% \begin{cases}
+% 1, & \text{se o enlace } j \text{ está no caminho } i, \\[4pt]
+% 0, & \text{caso contrário},
+% \end{cases}
+% \]
+% e por um vetor $t \in \mathbb{R}^N$ cujas entradas são os tempos de viagem (ruidosos) medidos ao longo dos $N$ caminhos.
+
+% Você pode assumir que $N > n$.  
+
+% Você obterá sua estimativa $\hat{d}$ minimizando o desvio RMS entre os tempos de viagem medidos ($t$) e os tempos de viagem previstos pela soma dos atrasos ao longo de cada caminho (dados por $Pd$).  
+
+% Explique como fazer isso e forneça uma expressão matricial para $\hat{d}$.  
+% Se sua expressão exigir suposições adicionais sobre os dados $P$ ou $t$, declare-as explicitamente.
+
+% \textbf{Observação.}  
+% Esse problema surge em diversos contextos.  
+% A rede pode ser um computador e um caminho representa a sequência de enlaces por onde pacotes de dados trafegam.  
+% A rede também pode ser um sistema de transporte, onde os enlaces representam trechos de rodovia.
+
+
+\item Considere o ajuste de reta, com dados dados pelos vetores $ x^d $ e $ y^d $, ambos de dimensão $N$. Seja $ r^d = y^d - \hat{y}^d $ o vetor de resíduos (ou erro de predição).  
+
+Mostre que
+\[
+\mathrm{rms}(r^d) = \mathrm{std}(y^d)\, \sqrt{1 - \rho^2},
+\]
+onde $\rho$ é o coeficiente de correlação entre $x^d$ e $y^d$ (assumidos não constantes).  
+
+Isso mostra que o erro RMS com o ajuste de reta é um fator $\sqrt{1 - \rho^2}$ menor do que o erro RMS com o ajuste constante, que é $\mathrm{std}(y^d)$.  
+Segue-se que, quando $x^d$ e $y^d$ são altamente correlacionados ($\rho \approx 1$) ou anticorrelacionados ($\rho \approx -1$), o ajuste de reta é muito melhor do que o ajuste constante.
+
+\medskip
+\noindent\textbf{Dica.}  
+Note que:
+\[
+\hat{y}^d - y^d
+= \frac{\mathrm{std}(y^d)}{\mathrm{std}(x^d)}
+\, \rho \, (x^d - \mathrm{avg}(x^d)\,1)
+ - (y^d - \mathrm{avg}(y^d)\,1).
+\]
+
+Expanda o quadrado da norma dessa expressão e use
+\[
+\rho
+= \frac{(x^d - \mathrm{avg}(x^d)\,1)^T (y^d - \mathrm{avg}(y^d)\,1)}
+       {\|x^d - \mathrm{avg}(x^d)\,1\|\, \|y^d - \mathrm{avg}(y^d)\,1\|}.
+\]
+
+\item Considere um conjunto de dados no qual o escalar $x^{(i)}$ é a altura do pai/mãe  
+(a média da altura da mãe e do pai) e $y^{(i)}$ é a altura do filho.  
+
+Assuma que, no conjunto de dados, as alturas de pais e filhos têm o mesmo valor médio $\mu$  
+e o mesmo desvio padrão $\sigma$.  
+Assuma também que o coeficiente de correlação $\rho$ entre as alturas de pais e filhos é (estritamente) entre zero e um.  
+(Estas suposições valem, ao menos aproximadamente, em conjuntos de dados reais suficientemente grandes.)
+
+Considere o modelo de regressão linear simples dado por uma reta,  
+o qual prediz a altura da criança a partir da altura dos pais.  
+
+Mostre que essa predição da altura da criança está (estritamente) entre a altura dos pais e a altura média $\mu$  
+(a menos que a altura dos pais seja exatamente igual a $\mu$).  
+
+Por exemplo, se os pais são altos, isto é, têm altura acima da média,  
+predizemos que o filho será mais baixo que eles, mas ainda acima da média.  
+Esse fenômeno, chamado \emph{regressão à média}, foi observado pela primeira vez pelo estatístico Sir Francis Galton  
+(que, de fato, estudou um conjunto de dados de alturas de pais e filhos).
+
+\end{enumerate}
+\end{document}

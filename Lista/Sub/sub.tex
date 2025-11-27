@@ -1,0 +1,73 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{cancel}
+% Pacote para códigos em Python
+\usepackage{listings}
+\renewcommand{\lstlistingname}{Algoritmo}
+% Configuração do ambiente listings para Python
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{red},
+    commentstyle=\color{gray}\itshape,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=5pt,
+    backgroundcolor=\color{white},
+    frame=single,
+    tabsize=4,
+    showspaces=false,
+    showstringspaces=false,
+    breaklines=true,
+    breakatwhitespace=true,
+    captionpos=b
+}
+\pagestyle{empty}
+
+\geometry{a4paper, margin=0.5in}
+
+\title{Prova Substitutiva - Álgebra Linear para Computação}
+\date{}
+\newcommand{\avg}{\mathbf{\textbf{avg}}}
+\newcommand{\std}{\mathbf{\textbf{std}}}
+\newcommand{\vet}[1]{\mathbf{#1}}
+\begin{document}
+\maketitle
+\vspace{-4em}
+\begin{enumerate}
+    \item Dada a matriz 
+    $$A = \begin{bmatrix}
+        1 & 0 & 1\\
+        0 & 1 & 1\\
+        1 & 1 & 0\\
+    \end{bmatrix},$$
+     calcule o polinômio característico, autovalores, base para o autoespaço e multiplicade algébrica e geométrica de cada autovalor.
+
+    \item Mostre que os autovalores de uma matriz triangular superior da forma:
+    $$
+    A = \begin{bmatrix}
+        a & b\\
+        0 & d
+    \end{bmatrix}
+    $$
+    são $\lambda_1 = a$ e $\lambda_2 = d$ e encontre os autoespaços correspondentes.
+
+    \item Mostre como utilizar as decomposições QR e SVD para calcular a solução do problema de mínimos quadrados:
+    $$
+    \hat{x} = \text{arg}\min_x \|Ax - b \|^2
+    $$
+
+\end{enumerate}
+
+\end{document}
