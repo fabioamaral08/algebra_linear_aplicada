@@ -1,0 +1,327 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\geometry{a4paper, margin=1in}
+
+\title{Exercícios Práticos de Python: Decomposição SVD e Compressão de Imagens}
+\author{Manus AI}
+\date{Outubro de 2025}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introdução}
+Esta lista de exercícios foi desenvolvida para complementar a aula sobre decomposição SVD e o teorema da melhor aproximação de posto $r$. Os exercícios progridem em dificuldade e abordam diferentes aspectos da aplicação prática do SVD em processamento de imagens.
+
+\section*{Exercício 1: Implementação Básica do SVD (Nível: Iniciante)}
+
+\textbf{Objetivo:} Familiarizar-se com a função \texttt{np.linalg.svd()} e verificar as propriedades básicas da decomposição.
+
+\textbf{Enunciado:}
+Crie uma função \texttt{analisar\_svd(matriz)} que:
+\begin{enumerate}
+    \item Receba uma matriz $A$ como entrada.
+    \item Calcule a decomposição SVD: $A = U \times \Sigma \times V^T$.
+    \item Imprima as dimensões de $U$, $\Sigma$ e $V^T$.
+    \item Verifique se a reconstrução $A_{\text{reconstruída}} = U \cdot \text{diag}(s) \cdot V^T$ é igual à matriz original (use \texttt{np.allclose()}).
+    \item Retorne o número de valores singulares não-nulos (posto da matriz).
+\end{enumerate}
+
+\textbf{Teste sua função com:}
+\begin{itemize}
+    \item Uma matriz $4 \times 3$ aleatória.
+    \item Uma matriz identidade $5 \times 5$.
+    \item Uma matriz de posto 2 (crie multiplicando duas matrizes de dimensões apropriadas).
+\end{itemize}
+
+\section*{Exercício 2: Carregamento e Análise de Imagem (Nível: Iniciante)}
+
+\textbf{Objetivo:} Aprender a trabalhar com imagens como matrizes e analisar suas propriedades.
+
+\textbf{Enunciado:}
+Desenvolva um programa que:
+\begin{enumerate}
+    \item Carregue uma imagem em escala de cinza usando \texttt{matplotlib.pyplot.imread()} ou \texttt{PIL.Image.open()}.
+    \item Converta para escala de cinza se necessário.
+    \item Exiba informações sobre a imagem:
+    \begin{itemize}
+        \item Dimensões (altura $\times$ largura).
+        \item Tipo de dados (\texttt{dtype}).
+        \item Valores mínimo e máximo dos pixels.
+        \item Posto da matriz da imagem.
+    \end{itemize}
+    \item Plote a imagem original usando \texttt{plt.imshow()}.
+    \item Calcule e exiba o histograma dos valores dos pixels.
+\end{enumerate}
+
+\textbf{Dica:} Use \texttt{plt.imread()} para carregar e \texttt{plt.imshow(cmap='gray')} para visualizar em escala de cinza.
+
+\section*{Exercício 3: Aproximação de Posto Baixo - Análise Quantitativa (Nível: Intermediário)}
+
+\textbf{Objetivo:} Implementar o teorema da melhor aproximação de posto $r$ e analisar o erro de reconstrução.
+
+\textbf{Enunciado:}
+Crie uma função \texttt{aproximacao\_posto\_r(imagem, r)} que:
+\begin{enumerate}
+    \item Calcule a decomposição SVD da imagem.
+    \item Construa a aproximação de posto $r$ usando apenas os primeiros $r$ valores singulares.
+    \item Calcule o erro de Frobenius de duas formas:
+    \begin{itemize}
+        \item \textbf{Método direto:} $\|A - A_r\|_F$ (norma da diferença das matrizes).
+        \item \textbf{Método teórico:} $\sqrt{\sigma_{r+1}^2 + \sigma_{r+2}^2 + \dots + \sigma_n^2}$ (usando valores singulares).
+    \end{itemize}
+    \item Verifique se os dois métodos produzem o mesmo resultado.
+    \item Retorne a imagem aproximada e o erro calculado.
+\end{enumerate}
+
+\textbf{Teste com diferentes valores de $r$:} 1, 5, 10, 20, 50, 100 e compare os erros.
+
+\section*{Exercício 4: Visualização Comparativa de Aproximações (Nível: Intermediário)}
+
+\textbf{Objetivo:} Criar visualizações para comparar diferentes níveis de aproximação.
+
+\textbf{Enunciado:}
+Desenvolva um programa que:
+\begin{enumerate}
+    \item Carregue uma imagem de sua escolha.
+    \item Calcule aproximações de posto $r$ para $r = [1, 5, 10, 25, 50, 100]$.
+    \item Crie um subplot com $2 \times 3$ imagens mostrando:
+    \begin{itemize}
+        \item A imagem original no primeiro subplot.
+        \item As 5 aproximações nos demais subplots.
+    \end{itemize}
+    \item Para cada aproximação, inclua no título:
+    \begin{itemize}
+        \item O valor de $r$.
+        \item O erro de reconstrução.
+        \item A porcentagem de compressão: $\left(1 - \frac{r(m+n+1)}{mn}\right) \times 100$.
+    \end{itemize}
+    \item Salve a figura como \texttt{comparacao\_aproximacoes.png}.
+\end{enumerate}
+
+\textbf{Desafio adicional:} Adicione uma curva mostrando como o erro decresce com o aumento de $r$.
+
+\section*{Exercício 5: Análise de Eficiência de Compressão (Nível: Intermediário)}
+
+\textbf{Objetivo:} Analisar o trade-off entre qualidade e compressão.
+
+\textbf{Enunciado:}
+Implemente uma função \texttt{analisar\_compressao(imagem)} que:
+\begin{enumerate}
+    \item Calcule aproximações para $r$ variando de 1 até o posto máximo da imagem.
+    \item Para cada $r$, calcule:
+    \begin{itemize}
+        \item Taxa de compressão: $\text{razao\_compressao} = \frac{r(m+n+1)}{mn}$.
+        \item Erro relativo: $\text{erro\_relativo} = \frac{\|A - A_r\|_F}{\|A\|_F}$.
+        \item PSNR (Peak Signal-to-Noise Ratio): $\text{PSNR} = 20 \log_{10}\left(\frac{255}{\text{RMSE}}\right)$.
+    \end{itemize}
+    \item Plote três gráficos:
+    \begin{itemize}
+        \item Erro relativo vs. $r$.
+        \item Taxa de compressão vs. $r$.
+        \item PSNR vs. Taxa de compressão.
+    \end{itemize}
+    \item Identifique o "ponto ótimo" onde se obtém boa qualidade com alta compressão.
+\end{enumerate}
+
+\begin{enumerate}
+    \item \textbf{Enunciado:}
+    Crie uma função \texttt{analisar\_svd(matriz)} que:
+    \begin{enumerate}
+        \item Receba uma matriz $A$ como entrada.
+        \item Calcule a decomposição SVD: $A = U \times \Sigma \times V^T$.
+        \item Imprima as dimensões de $U$, $\Sigma$ e $V^T$.
+        \item Verifique se a reconstrução $A_{\text{reconstruída}} = U \cdot \text{diag}(s) \cdot V^T$ é igual à matriz original (use \texttt{np.allclose()}).
+        \item Retorne o número de valores singulares não-nulos (posto da matriz).
+    \end{enumerate}
+    \textbf{Teste sua função com:}
+    \begin{itemize}
+        \item Uma matriz $4 \times 3$ aleatória.
+        \item Uma matriz identidade $5 \times 5$.
+        \item Uma matriz de posto 2 (crie multiplicando duas matrizes de dimensões apropriadas).
+    \end{itemize}
+
+    \item \textbf{Enunciado:}
+    Desenvolva um programa que:
+    \begin{enumerate}
+        \item Carregue uma imagem em escala de cinza usando \texttt{matplotlib.pyplot.imread()} ou \texttt{PIL.Image.open()}.
+        \item Converta para escala de cinza se necessário.
+        \item Exiba informações sobre a imagem:
+        \begin{itemize}
+            \item Dimensões (altura $\times$ largura).
+            \item Tipo de dados (\texttt{dtype}).
+            \item Valores mínimo e máximo dos pixels.
+            \item Posto da matriz da imagem.
+        \end{itemize}
+        \item Plote a imagem original usando \texttt{plt.imshow()}.
+        \item Calcule e exiba o histograma dos valores dos pixels.
+    \end{enumerate}
+
+    \item \textbf{Enunciado:}
+    Crie uma função \texttt{aproximacao\_posto\_r(imagem, r)} que:
+    \begin{enumerate}
+        \item Calcule a decomposição SVD da imagem.
+        \item Construa a aproximação de posto $r$ usando apenas os primeiros $r$ valores singulares.
+        \item Calcule o erro de Frobenius de duas formas:
+        \begin{itemize}
+            \item \textbf{Método direto:} $\|A - A_r\|_F$ (norma da diferença das matrizes).
+            \item \textbf{Método teórico:} $\sqrt{\sigma_{r+1}^2 + \sigma_{r+2}^2 + \dots + \sigma_n^2}$ (usando valores singulares).
+        \end{itemize}
+        \item Verifique se os dois métodos produzem o mesmo resultado.
+        \item Retorne a imagem aproximada e o erro calculado.
+    \end{enumerate}
+    \textbf{Teste com diferentes valores de $r$:} 1, 5, 10, 20, 50, 100 e compare os erros.
+
+    \item \textbf{Enunciado:}
+    Desenvolva um programa que:
+    \begin{enumerate}
+        \item Carregue uma imagem de sua escolha.
+        \item Calcule aproximações de posto $r$ para $r = [1, 5, 10, 25, 50, 100]$.
+        \item Crie um subplot com $2 \times 3$ imagens mostrando:
+        \begin{itemize}
+            \item A imagem original no primeiro subplot.
+            \item As 5 aproximações nos demais subplots.
+        \end{itemize}
+        \item Para cada aproximação, inclua no título:
+        \begin{itemize}
+            \item O valor de $r$.
+            \item O erro de reconstrução.
+            \item A porcentagem de compressão: $\left(1 - \frac{r(m+n+1)}{mn}\right) \times 100$.
+        \end{itemize}
+        \item Salve a figura como \texttt{comparacao\_aproximacoes.png}.
+    \end{enumerate}
+    \textbf{Desafio adicional:} Adicione uma curva mostrando como o erro decresce com o aumento de $r$.
+
+    \item \textbf{Enunciado:}
+    Implemente uma função \texttt{analisar\_compressao(imagem)} que:
+    \begin{enumerate}
+        \item Calcule aproximações para $r$ variando de 1 até o posto máximo da imagem.
+        \item Para cada $r$, calcule:
+        \begin{itemize}
+            \item Taxa de compressão: $\text{razao\_compressao} = \frac{r(m+n+1)}{mn}$.
+            \item Erro relativo: $\text{erro\_relativo} = \frac{\|A - A_r\|_F}{\|A\|_F}$.
+            \item PSNR (Peak Signal-to-Noise Ratio): $\text{PSNR} = 20 \log_{10}\left(\frac{255}{\text{RMSE}}\right)$.
+        \end{itemize}
+        \item Plote três gráficos:
+        \begin{itemize}
+            \item Erro relativo vs. $r$.
+            \item Taxa de compressão vs. $r$.
+            \item PSNR vs. Taxa de compressão.
+        \end{itemize}
+        \item Identifique o "ponto ótimo" onde se obtém boa qualidade com alta compressão.
+    \end{enumerate}
+    \textbf{Fórmula do RMSE:} $\sqrt{\text{mean}((A - A_r)^2)}$.
+    \item \textbf{Enunciado:}
+    Desenvolva um sistema de compressão para imagens coloridas:
+    \begin{enumerate}
+        \item Carregue uma imagem colorida (RGB).
+        \item Separe os canais R, G e B.
+        \item Para cada canal, aplique SVD e mantenha apenas os primeiros $r$ componentes.
+        \item Reconstrua a imagem colorida combinando os canais comprimidos.
+        \item Implemente uma função \texttt{comprimir\_imagem\_colorida(imagem, r\_red, r\_green, r\_blue)} que permita diferentes níveis de compressão para cada canal.
+        \item Compare visualmente:
+        \begin{itemize}
+            \item Imagem original.
+            \item Compressão uniforme (mesmo $r$ para todos os canais).
+            \item Compressão adaptativa ($r$ diferente por canal, baseado na variância de cada canal).
+        \end{itemize}
+    \end{enumerate}
+    \textbf{Dica:} O canal verde geralmente contém mais informação visual importante.
+
+    \item \textbf{Enunciado:}
+    Crie três métodos para determinar automaticamente o rank ótimo:
+    \begin{enumerate}
+        \item \textbf{Método 1 - Critério de Energia:}
+        \begin{itemize}
+            \item Mantenha componentes até que 99\% da "energia" (soma dos quadrados dos valores singulares) seja preservada.
+        \end{itemize}
+        \item \textbf{Método 2 - Critério do Cotovelo:}
+        \begin{itemize}
+            \item Encontre o ponto de inflexão na curva dos valores singulares usando a segunda derivada.
+        \end{itemize}
+        \item \textbf{Método 3 - Critério de Qualidade Visual:}
+        \begin{itemize}
+            \item Pare quando o PSNR atingir um limiar (ex: 30 dB).
+        \end{itemize}
+    \end{enumerate}
+    Implemente uma função \texttt{rank\_otimo(imagem, metodo='energia', limiar=0.99)} e compare os resultados dos três métodos em diferentes tipos de imagem (fotos, desenhos, texturas).
+
+    \item \textbf{Enunciado:}
+    Conduza um estudo comparativo:
+    \begin{enumerate}
+        \item Colete 4 tipos diferentes de imagem:
+        \begin{itemize}
+            \item Foto com muitos detalhes (paisagem).
+            \item Imagem com poucas cores (logo, desenho).
+            \item Textura repetitiva (padrão).
+            \item Imagem com gradientes suaves (céu, pôr do sol).
+        \end{itemize}
+        \item Para cada imagem, analise:
+        \begin{itemize}
+            \item Distribuição dos valores singulares (plot dos $\sigma_i$).
+            \item Taxa de decaimento dos valores singulares.
+            \item Rank efetivo (número de valores singulares > 1\% do máximo).
+            \item Qualidade de reconstrução para diferentes valores de $r$.
+        \end{itemize}
+        \item Crie um relatório automatizado que:
+        \begin{itemize}
+            \item Gere gráficos comparativos.
+            \item Identifique qual tipo de imagem comprime melhor.
+            \item Explique os resultados baseado nas características visuais.
+        \end{itemize}
+    \end{enumerate}
+
+    \item \textbf{Enunciado:}
+    Desenvolva um programa interativo usando \texttt{matplotlib.widgets} que:
+    \begin{enumerate}
+        \item Permita carregar diferentes imagens.
+        \item Tenha um slider para ajustar o valor de $r$ em tempo real.
+        \item Mostre simultaneamente:
+        \begin{itemize}
+            \item Imagem original e comprimida lado a lado.
+            \item Valores atuais de: $r$, erro, taxa de compressão, PSNR.
+            \item Gráfico dos valores singulares com linha indicando o corte atual.
+        \end{itemize}
+        \item Inclua botões para:
+        \begin{itemize}
+            \item Salvar a imagem comprimida atual.
+            \item Resetar para a imagem original.
+            \item Alternar entre diferentes métricas de qualidade.
+        \end{itemize}
+    \end{enumerate}
+    \textbf{Dica:} Use \texttt{matplotlib.widgets.Slider} e \texttt{plt.subplots\_adjust()} para layout.
+
+    \item \textbf{Enunciado:} 
+    Implemente um sistema de benchmark que:
+    \begin{enumerate}
+        \item Teste a decomposição SVD em imagens de diferentes tamanhos (64$\times$64, 128$\times$128, 256$\times$256, 512$\times$512, 1024$\times$1024).
+        \item Meça e compare:
+        \begin{itemize}
+            \item Tempo de decomposição SVD.
+            \item Tempo de reconstrução para diferentes valores de $r$.
+            \item Uso de memória para armazenar $U$, $\Sigma$, $V^T$ vs. imagem original.
+            \item Tempo de I/O para salvar/carregar dados comprimidos.
+        \end{itemize}
+        \item Investigue o impacto do tipo de dados (\texttt{float32} vs \texttt{float64}).
+        \item Compare com outros métodos de compressão (JPEG) em termos de:
+        \begin{itemize}
+            \item Taxa de compressão.
+            \item Qualidade visual (PSNR, SSIM).
+            \item Tempo de processamento.
+        \end{itemize}
+        \item Gere gráficos mostrando como a performance escala com o tamanho da imagem.
+    \end{enumerate}
+    
+\end{enumerate}\sqrt{\text{mean}((A - A_r)^2)}$.
+
+\end{document}

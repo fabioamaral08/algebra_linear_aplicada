@@ -1,0 +1,125 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+% Pacote para códigos em Python
+\usepackage{listings}
+\renewcommand{\lstlistingname}{Algoritmo}
+% Configuração do ambiente listings para Python
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{red},
+    commentstyle=\color{gray}\itshape,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=5pt,
+    backgroundcolor=\color{white},
+    frame=single,
+    tabsize=4,
+    showspaces=false,
+    showstringspaces=false,
+    breaklines=true,
+    breakatwhitespace=true,
+    captionpos=b
+}
+\pagestyle{empty}
+
+\geometry{a4paper, margin=0.5in}
+
+\title{Prova 1 - Álgebra Linear para Computação}
+\date{}
+\newcommand{\avg}{\mathbf{\textbf{avg}}}
+\newcommand{\std}{\mathbf{\textbf{std}}}
+\begin{document}
+\maketitle
+\vspace{-4em}
+\begin{enumerate}
+    \item Cálcule os valores para $k \in \mathbb{R}$ tal que os vetores $\mathbf{u}$ e $\mathbf{v}$ a seguir sejam ortogonais:
+    \begin{enumerate}
+        \item $\mathbf{u} = [2,3]^T,\ \mathbf{v} = [k+1,k-1]^T$
+        \item $\mathbf{u} = [1,-1,2]^T,\ \mathbf{v} = [k^2,k,-3]^T$
+    \end{enumerate}
+    \item Sejam $\mathbf{x}_{1},\mathbf{x}_{2},...,\mathbf{x}_{k}$ vetores do $\mathbb{R}^n$ e sejam $\alpha_1,\alpha_2,...,\alpha_k$ números reais. Considerando a combinação linear $\mathbf{z} = \alpha_1\mathbf{x}_{1} +\alpha_2\mathbf{x}_{2} + ... +\alpha_k\mathbf{x}_{k}$, mostre que:
+    \begin{enumerate}
+        \item $\avg(\mathbf{z}) = \alpha_1\avg(\mathbf{x}_1) + \alpha_2\avg(\mathbf{x}_2) + ... + \alpha_k\avg(\mathbf{x}_k)$
+        \item $\std(\mathbf{z}) = \sqrt{\alpha_1^2\std(\mathbf{x}_1)+ \alpha_2^2\std(\mathbf{x}_2)+...+\alpha_k^2\std(\mathbf{x}_k)}$, supondo que os vetores não estejam correlacionados, o que significa que para $i\neq j$, $\mathbf{x}_i$ e $\mathbf{x}_j$ não são correlacionados.
+    \end{enumerate}
+    \textbf{Dica: }$\avg(\mathbf{x}) = \frac{x_1 + x_2 + ... + x_n}{n}$ e $\std(\mathbf{x}) = \frac{\|\mathbf{x} - \avg(\mathbf{x})\mathbf{1}\|}{\sqrt{n}}$, onde $\mathbf{1} \in \mathbb{R}^n$ é o vetor onde todas as entradas são iguais a 1.
+    % \item Verifique que a fórmula 
+    % $$ f(\mathbf{x}) = f(\mathbf{0}) + x_1 (f(\mathbf{e}_1) - f(\mathbf{0})) + ... +  x_n (f(\mathbf{e}_n) - f(\mathbf{0})) $$
+    % é satisfeita para qualquer função afim $f:\mathbb{R}^n \to \mathbb{R}$. Você pode utilizar o fato de que $\mathbf{e}_i,\ i = 1,...,n$, são os vetores da base canônica de $\mathbb{R}^n$ e que $f(\mathbf{x}) = \mathbf{a}^T\mathbf{x} + b$ para algum vetor $\mathbf{a}\in\mathbb{R}^n$ e escalar $b$.
+    \item Para quais valores de $a \in \mathbb{R}$ o seguinte conjunto $B$ forma uma base de $\mathbb{R}^3$:
+    $$ B = \{(a,1,0),\ (1,a,1),\ (0,1,a)\}.$$
+    % \item Considere a seguinte matriz por blocos faça sentido:
+    % $$ K = \begin{bmatrix}
+    %     \mathbf{I} & \mathbf{A}^T\\
+    %     \mathbf{A} & \mathbf{0}
+    % \end{bmatrix}$$
+    % Diga quais das seguites informações são verdadeiras. Ou seja, quais afirmações são naturalmente verificadas sem assumir nada a mais do que fornece o exercício:
+    % \begin{enumerate}
+    %     \item $\mathbf{K}$ é quadrada.
+    %     \item $\mathbf{A}$ é quadrada ou deve ter mais colunas que linhas.
+    %     \item $\mathbf{K}$ é simétrica.
+    %     \item As submatrizes zero e identidade tem as mesmas dimensões.
+    %     \item A submatriz zero é quadrada.
+    % \end{enumerate}
+    % \item Suponha que $\mathbf{a}$ é um vetor em $\mathbb{R}^n$.
+    % \begin{enumerate}
+    %     \item O que significa a convolução $1 \mathbf{*} \mathbf{a}$ para $1 \in \mathbb{R}^n$, um número real?
+    %     \item O que significa $\mathbf{e}_k\mathbf{*} \mathbf{a}$, onde $\mathbf{e}_k$ é o $k$--ésimo vetor da base canônica de $\mathbf{R}^q$? Descreva este vetor matematicamente (ou seja, fornceça suas entradas) e por meio de uma breve descrição. \textbf{Dica}: Uma notação de partes de vetor pode ser útil.
+    % \end{enumerate}
+    \item Sejam $T: \mathbb{P}_1 \to \mathbb{R}^2$ e $S: \mathbb{R}^2 \to \mathbb{R}^2$ transformações lineares, onde $T(p(x)) = \begin{bmatrix} p(0) \\ p(1) \end{bmatrix}$ e $S\left(\begin{bmatrix} a \\ b \end{bmatrix}\right) = \begin{bmatrix} a - 2b \\ 2a - b \end{bmatrix}$. Encontre a matriz da transformação $S \circ T$.
+
+    \item Dada uma função linear $f:\mathbb{R}^n \to \mathbb{R}^m$ e a dimensão do vetor de entrada $n$, escreve um pseudo código que retorne a matriz $A$ tal que $f(x) = Ax$.\\
+\textit{Dica: caso queira abstrair um método que crie um vetor ou matriz específica, apenas explique o que esse método faz. Exemplo: \texttt{cria\_vetor\_zero(n)} cria um vetor de zeros de dimensão $n$.}
+
+    \item Sobre o seguinte algoritmo:
+    \begin{lstlisting}[gobble=12,caption=Exemplo de código Python]
+        novos_vetores = []
+        for v_k in vetores:
+            soma = 0
+            for u_i in novos_vetores:
+                soma += u_i.T @ v_k / (u_i.T @ u_i) * u_i
+            u_k = v_k - soma
+            norm = np.linalg.norm(u_k)
+            if np.abs(norm) < 1e-10:
+                print("conjunto LD")
+                continue
+            u_k = u_k / (norm)
+            novos_vetores.append(u_k)
+    \end{lstlisting}
+        \begin{enumerate}
+            \item Explique a linha 5 do código.
+            \item Qual a finalidade do algoritmo?
+        \end{enumerate}
+    % \item A temperatura T de um dispositivo com três processadores é afim da potência \(\mathbf{P}=(P_1,P_2,P_3)\). Dados:
+    % $$
+    % T(10,10,10)=30,\quad T(100,10,10)=60,\quad T(10,100,10)=70,\quad T(10,10,100)=65.
+    % $$
+    % Explique como o código a seguir pode ser usado para determinar a função $T(P) = a^T P + b$, onde $a \in \mathbb{R}^3$ e $b \in \mathbb{R}$.
+    % \begin{lstlisting}[gobble=16]
+    %     A = np.array([
+    %         [10, 10, 10, 1],
+    %         [100, 10, 10, 1],
+    %         [10, 100, 10, 1],
+    %         [10, 10, 100, 1]
+    %     ])
+    %     b = np.array([30, 60, 70, 65])
+    %     x = np.linalg.solve(A, b)
+    %     a = x[:3]
+    %     b = x[3]
+    % \end{lstlisting}
+    
+\end{enumerate}
+
+\end{document}

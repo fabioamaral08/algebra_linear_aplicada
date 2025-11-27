@@ -1,0 +1,159 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazilian]{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+% Pacote para códigos em Python
+\usepackage{listings}
+\usepackage[Algoritmo]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{caption}
+% \renewcommand{\lstlistingname}{Algoritmo}
+% \makeatletter
+% \renewcommand{\ALG@name}{Algoritmo}
+% \makeatother
+% Configuração do ambiente listings para Python
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{red},
+    commentstyle=\color{gray}\itshape,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=5pt,
+    backgroundcolor=\color{white},
+    frame=single,
+    tabsize=4,
+    showspaces=false,
+    showstringspaces=false,
+    breaklines=true,
+    breakatwhitespace=true,
+    captionpos=b
+}
+\pagestyle{empty}
+
+\geometry{a4paper, margin=0.5in}
+
+\title{Gabarito da Prova 1 - Álgebra Linear para Computação}
+\date{}
+\newcommand{\avg}{\mathbf{\textbf{avg}}}
+\newcommand{\std}{\mathbf{\textbf{std}}}
+\newcommand{\vect}[1]{\mathbf{#1}}
+\newcommand{\inner}[2]{\langle #1, #2 \rangle}
+\newcommand{\norm}[1]{\left \| #1 \right \|}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+    \item  \begin{enumerate}
+        \item Queremos encontrar $k$ tal que $\inner{\vect{u}}{\vect{v}} = 0$:
+        \begin{align*}
+            \inner{\vect{u}}{\vect{v}} & = 2(k+1) + 3(k-1)\\
+            &= 2k + 2 + 3k - 3\\
+            &= 5k - 1 = 0\\
+            & \Rightarrow k = \frac{1}{5}
+        \end{align*}
+        Portanto, $k = \dfrac{1}{5}$.
+
+        \item Queremos encontrar $k$ tal que $\inner{\vect{u}}{\vect{v}} = 0$:
+        \begin{align*}
+            \inner{\vect{u}}{\vect{v}} & = k^2 - k - 6 = 0
+        \end{align*}
+        Resolvendo a equação quadrática:
+        \begin{align*}
+            k & = \frac{1 \pm \sqrt{1 + 24}}{2}\\
+            & = \frac{1 \pm 5}{2}
+        \end{align*}
+        Portanto, $k = 3$ ou $k = -2$.
+    \end{enumerate}
+    \item \begin{enumerate}
+        \item A $i$--ésima entrada de $\vect{z}$ é dada por $z_i = \alpha_1 x_{1,i} + \alpha_2 x_{2,i} + \cdots +\alpha_k x_{k,i}$ onde $x_{j,i}$ representa a entrada $i$ do vetor $\vect{x}_j$. Portanto:
+        \begin{align*}
+            \avg(\vect{z}) & = \frac{z_1 + \cdots + z_n}{n}\\
+            & = \frac{(\alpha_1 x_{1,1} + \cdots + \alpha_k x_{k,1}) + \cdots +(\alpha_1 x_{n,k} + \cdots + \alpha_k x_{k,n})}{n}\\
+            & = \alpha_1 \frac{x_{1,1} + \cdots + x_{1,n}}{n} + \alpha_2 \frac{x_{2,1} + \cdots + x_{2,n}}{n} + \cdots + \alpha_k \frac{x_{k,1} + \cdots + x_{k,n}}{n}\\
+            &= \alpha_1 \avg(\vect{x}_1) + \cdots + \alpha_k \avg(\vect{x}_k)
+        \end{align*}
+    \item Utilizando a notação $\tilde{\vect{x}_i} = \vect{x}_i - \avg(\vect{x}_i)\vect{1}$ para os vetores $\vect{x}_i$ menos as médias, temos:
+    \begin{align*}
+        \|\vect{z} - \avg(\vect{z})\vect{1}\|^2 & = \norm{\alpha_1\vect{x}_1 + \cdots + \alpha_k \vect{x}_k - (\alpha_1 \avg(\vect{x}_1) + \cdots + \alpha_k \avg(\vect{x}_k))\vect{1}}^2\\
+        &= \norm{\alpha_1\tilde{\vect{x}_1} + \cdots + \alpha_k\tilde{\vect{x}_k}}^2\\
+        &= (\alpha_1\tilde{\vect{x}_1} + \cdots + \alpha_k\tilde{\vect{x}_k})^T(\alpha_1\tilde{\vect{x}_1} + \cdots + \alpha_k\tilde{\vect{x}_k}).
+    \end{align*}
+    Como os vetores não são correlacionados, temos $\tilde{\vect{x}_i}^T\tilde{\vect{x}_j} = 0$ para $i \neq j$. Logo:
+    \begin{align*}
+        \|\vect{z} - \avg(\vect{z})\vect{1}\|^2 & =(\alpha_1\tilde{\vect{x}_1} + \cdots + \alpha_k\tilde{\vect{x}_k})^T(\alpha_1\tilde{\vect{x}_1} + \cdots + \alpha_k\tilde{\vect{x}_k}).\\
+        &= \alpha_1^2\norm{\tilde{\vect{x}_1}}^2 + \cdots  \alpha_k^2\norm{\tilde{\vect{x}_k}}^2,
+    \end{align*}
+    portanto:
+    \begin{align*}
+        \std(\vect{z})^2 &= \frac{1}{n} \norm{\vect{z} - \avg(\vect{z})\vect{1}}^2\\
+         &= \alpha_1^2 \frac{\norm{\tilde{\vect{x}_1}}}{n} + \cdots + \alpha_k^2 \frac{\norm{\tilde{\vect{x}_k}}}{n}\\
+        & = \alpha_1^2 \std(\vect{x}_1) + \cdots +\alpha_k \std(\vect{x}_k)\\
+        \Rightarrow \std(\vect{z}) & = \sqrt{\alpha_1^2 \std(\vect{x}_1) + \cdots +\alpha_k \std(\vect{x}_k)}.
+    \end{align*}
+    \end{enumerate}
+    \item Seja $A$ a matriz cujas colunas sejam formadas pelos vetores da base $B$. Temos:
+    $$
+    A = \begin{bmatrix}
+        a & 1 & 0 \\
+        1 & a & 1 \\
+        0 & 1 & a \\
+    \end{bmatrix}.
+    $$
+    Para que $B$ Seja uma base do $\mathbb{R}^3$, temos que $\det(A) \neq 0$, ou seja:
+    $$
+    \det(A) = a^3 - 2a = a(a^2-2) \neq 0.
+    $$
+    Temos então que $\det(A) = 0$ para os valores $a = 0$, $a= \sqrt{2}$ e $a = -\sqrt{2}$, portanto $B$ é base para $a \in \mathbb{R}\setminus\{0,\sqrt{2}, -\sqrt{2}\}$.
+    \item A base canônica de $\mathbb{P}_1$ é dada por $\{1, x\}$. Aplicando $T$ na base canônica, temos $T(1) = \begin{bmatrix}
+        1 \\ 1
+    \end{bmatrix}$ e $T(x) = \begin{bmatrix}
+        0 \\ 1
+    \end{bmatrix}$, portanto $[T] = \begin{bmatrix}
+        1 & 0 \\ 1 & 1
+    \end{bmatrix}$. Para transformação $S$, temos $S((1,0)) = \begin{bmatrix}
+        1\\2
+    \end{bmatrix}$ e $S((0,1)) = \begin{bmatrix}
+        -2\\-1
+    \end{bmatrix}$. Portanto $[S] = \begin{bmatrix}
+        1 & -2\\2 & -1
+    \end{bmatrix}$. Desse modo, temos $[S \circ T] = \begin{bmatrix}
+        1 & 0 \\ 1 & 1
+    \end{bmatrix}  \begin{bmatrix}
+        1 & -2\\2 & -1
+    \end{bmatrix} =  \begin{bmatrix}
+        -1 & -2\\1 & -1
+    \end{bmatrix}$.
+
+    \item  Dada as funções \texttt{cria\_vetor\_canonico(i,n)}, que retorna o $i$--ésimo vetor da base canônica de $\mathbb{R}^n$, e \texttt{cria\_matriz($A_n$)}, que cria uma matriz cujas colunas são dados pelos vetores no conjunto $A_n$, temos:
+    \begin{algorithm}
+    \caption{Cria matriz da transformação}
+    \begin{algorithmic}[1]
+        \State \textbf{Entradas:} Transformação Linear $f$, dimensão de entrada $n$, dimensão do espaço de saída $m$.
+        \State \textbf{Inicializa} $A_0 \gets \emptyset$
+        \For{$i = 1,\cdots, n$}
+            \State $e_i$ = \texttt{cria\_vetor\_canonico(i,n)}
+            \State $A_{i} = A_{i-1} \cup \{f(e_i)\}$
+        \EndFor
+        \State $A \gets$ \texttt{cria\_matriz($A_n$)}
+        \State \textbf{Retorna} $A$
+    \end{algorithmic}
+    \end{algorithm}
+
+    \item \begin{enumerate}
+        \item A linha 5 está calculando a projeção do vetor $v_k$ sobre os vetores $u_i$ esomando os resultados.
+        \item Este é o algorítimo de ortonormalização de Gram-Schmidt. Sua finalidade é gerar uma base ortonormal a partir de um conjunto de vetores linearmente independentes. Caso o conjunto fornecido seja linearmente dependente, o vetor que é dependente dos demais é ignorado.
+    \end{enumerate}
+\end{enumerate}
+\end{document}

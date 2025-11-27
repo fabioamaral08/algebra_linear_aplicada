@@ -1,0 +1,80 @@
+\documentclass[a4paper,12pt]{article}
+
+% Pacotes básicos
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+% Pacote para códigos em Python
+\usepackage{listings}
+\usepackage{xcolor}
+\renewcommand{\lstlistingname}{Algoritmo}
+% Configuração do ambiente listings para Python
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{red},
+    commentstyle=\color{gray}\itshape,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=5pt,
+    backgroundcolor=\color{white},
+    frame=single,
+    tabsize=4,
+    showspaces=false,
+    showstringspaces=false,
+    breaklines=true,
+    breakatwhitespace=true,
+    captionpos=b
+}
+
+\begin{document}
+
+    \begin{enumerate}
+        \item Dada uma função linear $f:\mathbb{R}^n \to \mathbb{R}^m$ e a dimensão do vetor de entrada $n$, escreve um pseudo código que retorne a matriz $A$ tal que $f(x) = Ax$.\\
+        \textit{Dica: caso queira abstrair um método que crie um vetor ou matriz específica, apenas explique o que esse método faz. Exemplo: \texttt{cria\_vetor\_zero(n)} cria um vetor de zeros de dimensão $n$.}
+
+        \item Sobre o seguinte algoritmo:
+        \begin{lstlisting}[gobble=12,caption=Exemplo de código Python]
+            novos_vetores = []
+            for v_k in vetores:
+                soma = 0
+                for u_i in novos_vetores:
+                    soma += u_i.T @ v_k / (u_i.T @ u_i) * u_i
+                u_k = v_k - soma
+                norm = np.linalg.norm(u_k)
+                if np.abs(norm) < 1e-10:
+                    print("conjunto LD")
+                    continue
+                u_k = u_k / (norm)
+                novos_vetores.append(u_k)
+        \end{lstlisting}
+            \begin{enumerate}
+                \item Explique a linha 5 do código.
+                \item Qual a finalidade do algoritmo?
+            \end{enumerate}
+            \item A temperatura T de um dispositivo com três processadores é afim da potência \(\mathbf{P}=(P_1,P_2,P_3)\). Dados:
+            $$
+            T(10,10,10)=30,\quad T(100,10,10)=60,\quad T(10,100,10)=70,\quad T(10,10,100)=65.
+            $$
+            Explique como o código a seguir pode ser usado para determinar a função $T(P) = a^T P + b$, onde $a \in \mathbb{R}^3$ e $b \in \mathbb{R}$.
+            \begin{lstlisting}[gobble=16]
+                A = np.array([
+                    [10, 10, 10, 1],
+                    [100, 10, 10, 1],
+                    [10, 100, 10, 1],
+                    [10, 10, 100, 1]
+                ])
+                b = np.array([30, 60, 70, 65])
+                x = np.linalg.solve(A, b)
+                a = x[:3]
+                b = x[3]
+            \end{lstlisting}
+    \end{enumerate}
+
+\end{document}
